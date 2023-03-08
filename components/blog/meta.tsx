@@ -1,9 +1,49 @@
+// components/blog/meta.tsx
+
 import Head from "next/head";
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "../../lib/constants";
 
-export default function Meta() {
+type Props = {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+};
+
+export default function Meta({ title, description, ogImage }: Props) {
+  const defaultTitle = `Next.js Blog Example with ${CMS_NAME}`;
+  const defaultDescription = "This is a meta description";
+  const defaultOgImage = HOME_OG_IMAGE_URL;
+
   return (
     <Head>
+      <title>{title ? `${title} | ${defaultTitle}` : defaultTitle}</title>
+      <meta
+        name="description"
+        content={description ? description : defaultDescription}
+      />
+      <meta
+        property="og:title"
+        content={title ? `${title} | ${defaultTitle}` : defaultTitle}
+      />
+      <meta
+        property="og:description"
+        content={description ? description : defaultDescription}
+      />
+      <meta property="og:image" content={ogImage ? ogImage : defaultOgImage} />
+      <meta property="twitter:card" content="summary_large_image" />
+      <meta property="twitter:site" content="@YourTwitterHandle" />
+      <meta
+        property="twitter:title"
+        content={title ? `${title} | ${defaultTitle}` : defaultTitle}
+      />
+      <meta
+        property="twitter:description"
+        content={description ? description : defaultDescription}
+      />
+      <meta
+        property="twitter:image"
+        content={ogImage ? ogImage : defaultOgImage}
+      />
       <link
         rel="apple-touch-icon"
         sizes="180x180"
@@ -32,11 +72,6 @@ export default function Meta() {
       <meta name="msapplication-config" content="/favicon/browserconfig.xml" />
       <meta name="theme-color" content="#000" />
       <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
-      <meta
-        name="description"
-        content={`A statically generated blog example using Next.js and ${CMS_NAME}.`}
-      />
-      <meta property="og:image" content={HOME_OG_IMAGE_URL} />
     </Head>
   );
 }

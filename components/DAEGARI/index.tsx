@@ -13,12 +13,11 @@ interface NavItem {
 }
 
 const navgiations = [
-  { label: "Home", path: "/" },
-  { label: "Blog", path: "/blog" },
-  { label: "Korean Sentences", path: "/koreansentence" },
+  { label: "Blog", path: "/" },
+  { label: "Korean Sentences", path: "/korean" },
   { label: "Documentation", path: "/documentation" },
 
-  { label: "test", path: "/test" },
+  // { label: "test", path: "/test" },
 ];
 
 export default function Navbar() {

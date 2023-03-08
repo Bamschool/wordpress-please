@@ -12,10 +12,57 @@ export default function Index({ allPosts: { edges }, preview }) {
   const heroPost = edges[0]?.node;
   const morePosts = edges.slice(1);
 
+  const seo = {
+    title: `Next.js Blog Example with ${CMS_NAME}`,
+    metaDesc: "This is a meta description",
+    fullHead: "This is the full head content",
+    ogImage: "https://www.example.com/og-image.jpg",
+  };
+
   return (
-    <Layout preview={preview}>
+    <Layout preview={preview} seo={seo}>
       <Head>
-        <title>{`Next.js Blog Example with ${CMS_NAME}`}</title>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.metaDesc} />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={seo.metaDesc} />
+        <meta property="og:image" content={seo.ogImage} />
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:site" content="@YourTwitterHandle" />
+        <meta property="twitter:title" content={seo.title} />
+        <meta property="twitter:description" content={seo.metaDesc} />
+        <meta property="twitter:image" content={seo.ogImage} />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/favicon/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/favicon/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        <link
+          rel="mask-icon"
+          href="/favicon/safari-pinned-tab.svg"
+          color="#000000"
+        />
+        <link rel="shortcut icon" href="/favicon/favicon.ico" />
+        <meta name="msapplication-TileColor" content="#000000" />
+        <meta
+          name="msapplication-config"
+          content="/favicon/browserconfig.xml"
+        />
+        <meta name="theme-color" content="#000" />
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" />
       </Head>
       <Container>
         <Intro />

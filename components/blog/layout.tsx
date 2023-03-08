@@ -2,12 +2,14 @@ import Alert from "./alert";
 import Footer from "./footer";
 import Meta from "./meta";
 import Navbar from "./../DAEGARI";
-export default function Layout({ preview, children }) {
+import { getAllKoreansentencesForHome } from "../../lib/api";
+
+export default function Layout({ preview, children, seo }) {
   return (
     <>
-      <Meta />
+      <Meta seo={seo} />
       <div className="min-h-screen">
-        <Alert preview={preview} />
+        {/* <Alert preview={preview} /> */}
         <Navbar />
         <main>{children}</main>
       </div>
