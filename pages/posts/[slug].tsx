@@ -30,7 +30,7 @@ export default function Post({ post, posts, preview }) {
   };
 
   return (
-    <Layout preview={preview}>
+    <Layout preview={preview} seo={seo}>
       <Head>
         <title>{seo.title}</title>
         <meta name="description" content={seo.metaDesc} />

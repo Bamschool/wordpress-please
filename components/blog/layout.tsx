@@ -4,12 +4,24 @@ import Meta from "./meta";
 import Navbar from "./../DAEGARI";
 import { getAllKoreansentencesForHome } from "../../lib/api";
 
-export default function Layout({ preview, children, seo }) {
+type SeoProps = {
+  title: string;
+  metaDesc: string;
+  fullHead: string;
+  ogImage: string;
+};
+
+type LayoutProps = {
+  preview: boolean;
+  children: React.ReactNode;
+  seo: SeoProps;
+};
+
+export default function Layout({ preview, children, seo }: LayoutProps) {
   return (
     <>
-      <Meta seo={seo} />
+      <Meta />
       <div className="min-h-screen">
-        {/* <Alert preview={preview} /> */}
         <Navbar />
         <main>{children}</main>
       </div>

@@ -20,7 +20,7 @@ export default function korean({ allKoreansentences: { edges }, preview }) {
   };
 
   return (
-    <Layout preview={preview}>
+    <Layout preview={preview} seo={seo}>
       <Head>
         <title>{seo.title}</title>
         <meta name="description" content={seo.metaDesc} />
@@ -61,7 +61,6 @@ export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
     revalidate: 10,
   };
 };
-
 
 // import { GetStaticProps } from "next";
 // import { getKoreanSentences } from "../lib/api";

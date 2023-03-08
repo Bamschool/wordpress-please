@@ -26,14 +26,14 @@ export default function Post({ koreansentence, koreansentences, preview }) {
   }
 
   const seo = {
-    title: `${koreansentence.title} | Next.js Blog Example with ${CMS_NAME}`,
+    title: `${koreansentence.title} | ${CMS_NAME}`,
     metaDesc: koreansentence.seo?.metaDesc || "",
     fullHead: koreansentence.seo?.fullHead || "",
     ogImage: koreansentence.featuredImage?.node.sourceUrl || "",
   };
 
   return (
-    <Layout preview={preview}>
+    <Layout preview={preview} seo={seo}>
       <Head>
         <title>{seo.title}</title>
         <meta name="description" content={seo.metaDesc} />
