@@ -11,6 +11,7 @@ import SectionSeparator from "../../components/blog/section-separator";
 import Layout from "../../components/blog/layout";
 import PostTitle from "../../components/blog/post-title";
 import Tags from "../../components/blog/tags";
+import Header from "../../components/blog/header";
 import {
   getAllKoreansentencesWithSlug,
   getKoreansentenceAndMorePosts,
@@ -25,52 +26,45 @@ export default function Post({ koreansentence, koreansentences, preview }) {
     return <ErrorPage statusCode={404} />;
   }
 
-  const seo = {
-    title: `${koreansentence.title} | ${CMS_NAME}`,
-    metaDesc: koreansentence.seo?.metaDesc || "",
-    fullHead: koreansentence.seo?.fullHead || "",
-    ogImage: koreansentence.featuredImage?.node.sourceUrl || "",
-  };
-
   return (
-    <Layout preview={preview} seo={seo}>
-      <Head>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.metaDesc} />
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:image" content={seo.ogImage} />
-        {seo.fullHead && <>{seo.fullHead}</>}
-      </Head>
-      <Container>
-        <SentenceHeader />
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article>
-              <KoreanHeader
-                title={koreansentence.title}
-                coverImage={koreansentence.featuredImage}
-                date={koreansentence.date}
-                author={koreansentence.author}
-                categories={koreansentence.categories}
+    <Container>
+      <Header />
+      {router.isFallback ? (
+        <PostTitle>Loading…</PostTitle>
+      ) : (
+        <>
+          <article>
+            <Head>
+              <title>
+                {`${koreansentence.title} | Next.js Blog Example with ${CMS_NAME}`}
+              </title>
+              <meta
+                property="og:image"
+                content={koreansentence.featuredImage?.node.sourceUrl}
               />
-              <KoreanBody content={koreansentence.content} />
-              <footer>
-                {koreansentence.tags.edges.length > 0 && (
-                  <Tags tags={koreansentence.tags} />
-                )}
-              </footer>
-            </article>
+            </Head>
+            <KoreanHeader
+              title={koreansentence.title}
+              coverImage={koreansentence.featuredImage}
+              date={koreansentence.date}
+              author={koreansentence.author}
+              categories={koreansentence.categories}
+            />
+            <KoreanBody content={koreansentence.content} />
+            <footer>
+              {koreansentence.tags.edges.length > 0 && (
+                <Tags tags={koreansentence.tags} />
+              )}
+            </footer>
+          </article>
 
-            <SectionSeparator />
-            {moreKoreansentences.length > 0 && (
-              <MoreSentences koreansentences={moreKoreansentences} />
-            )}
-          </>
-        )}
-      </Container>
-    </Layout>
+          <SectionSeparator />
+          {moreKoreansentences.length > 0 && (
+            <MoreSentences koreansentences={moreKoreansentences} />
+          )}
+        </>
+      )}
+    </Container>
   );
 }
 

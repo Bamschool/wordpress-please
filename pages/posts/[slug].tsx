@@ -22,53 +22,41 @@ export default function Post({ post, posts, preview }) {
     return <ErrorPage statusCode={404} />;
   }
 
-  const seo = {
-    title: `${post.title} `,
-    metaDesc: post.seo ? post.seo.metaDesc : "",
-    fullHead: post.seo ? post.seo.fullHead : "",
-    ogImage: post.featuredImage?.node.sourceUrl || "",
-  };
-
   return (
-    <Layout preview={preview} seo={seo}>
-      <Head>
-        <title>{seo.title}</title>
-        <meta name="description" content={seo.metaDesc} />
-        <meta property="og:title" content={seo.title} />
-        <meta property="og:description" content={seo.metaDesc} />
-        <meta property="og:image" content={seo.ogImage} />
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:site" content="@YourTwitterHandle" />
-        <meta property="twitter:title" content={seo.title} />
-        <meta property="twitter:description" content={seo.metaDesc} />
-        <meta property="twitter:image" content={seo.ogImage} />
-      </Head>
-      <Container>
-        <Header />
-        {router.isFallback ? (
-          <PostTitle>Loading…</PostTitle>
-        ) : (
-          <>
-            <article>
-              <PostHeader
-                title={post.title}
-                coverImage={post.featuredImage}
-                date={post.date}
-                author={post.author}
-                categories={post.categories}
+    <Container>
+      <Header />
+      {router.isFallback ? (
+        <PostTitle>Loading…</PostTitle>
+      ) : (
+        <>
+          <article>
+            <Head>
+              <title>
+                {`${post.title} | Next.js Blog Example with ${CMS_NAME}`}
+              </title>
+              <meta
+                property="og:image"
+                content={post.featuredImage?.node.sourceUrl}
               />
-              <PostBody content={post.content} />
-              <footer>
-                {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
-              </footer>
-            </article>
+            </Head>
+            <PostHeader
+              title={post.title}
+              coverImage={post.featuredImage}
+              date={post.date}
+              author={post.author}
+              categories={post.categories}
+            />
+            <PostBody content={post.content} />
+            <footer>
+              {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
+            </footer>
+          </article>
 
-            <SectionSeparator />
-            {morePosts.length > 0 && <MoreStories posts={morePosts} />}
-          </>
-        )}
-      </Container>
-    </Layout>
+          <SectionSeparator />
+          {morePosts.length > 0 && <MoreStories posts={morePosts} />}
+        </>
+      )}
+    </Container>
   );
 }
 
