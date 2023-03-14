@@ -51,6 +51,14 @@ export async function getAllPostsWithSlug() {
         edges {
           node {
             slug
+            id
+            content
+            title
+            seo {
+              metaDesc
+              title
+              fullHead
+            }
           }
         }
       }
@@ -414,7 +422,7 @@ export async function getKoreansentenceAndMorePosts(
 export async function getPreviewDocumentation(id, idType = "DATABASE_ID") {
   const data = await fetchAPI(
     `
-    query PreviewDocumentation($id: ID!, $idType: PostIdType!) {
+    query PreviewDocumentation($id: ID!, $idType: DocumentationIdType!) {
       documentation(id: $id, idType: $idType) {
         databaseId
         slug
@@ -430,24 +438,31 @@ export async function getPreviewDocumentation(id, idType = "DATABASE_ID") {
 
 export async function getAllDocumentationWithSlug() {
   const data = await fetchAPI(`
-    {
-      documentations(first: 10000) {
-        edges {
-          node {
-            slug
+  {
+    documentations(first: 10000) {
+      edges {
+        node {
+          slug
+          id
+          content
+          title
+          seo {
+            metaDesc
+            title
+            fullHead
           }
         }
       }
     }
+  }
   `);
-  return data?.posts;
+  return data?.documentations;
 }
 
 export async function getAllDocumentationsForHome(preview) {
-  const data = await fetchAPI(
-    `
+  const data = await fetchAPI(`
     query AllDocumentations {
-      documentations(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
+      documentations(first: 20, where: {orderby: {field: DATE, order: DESC}}) {
         edges {
           node {
             title
@@ -469,20 +484,18 @@ export async function getAllDocumentationsForHome(preview) {
                 }
               }
             }
+            categories {
+              nodes {
+                name
+              }
+            }
           }
         }
       }
     }
-  `,
-    {
-      variables: {
-        onlyEnabled: !preview,
-        preview,
-      },
-    }
-  );
+  `);
 
-  return data?.documentations;
+  return data?.documentations.edges || [];
 }
 
 export async function getDocumentationAndMorePosts(slug, preview, previewData) {
@@ -506,7 +519,7 @@ export async function getDocumentationAndMorePosts(slug, preview, previewData) {
         url
       }
     }
-    fragment DocumentationFields on Post {
+    fragment DocumentationFields on Documentation {
       title
       excerpt
       slug
@@ -565,7 +578,7 @@ export async function getDocumentationAndMorePosts(slug, preview, previewData) {
       documentations(first: 3, where: { orderby: { field: DATE, order: DESC } }) {
         edges {
           node {
-            ...PostFields
+            ...DocumentationFields
           }
         }
       }

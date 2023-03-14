@@ -20,7 +20,7 @@ export default function korean({ allKoreansentences: { edges }, preview }) {
   };
 
   return (
-    <Layout preview={preview} seo={seo}>
+    <>
       <Head>
         <title>{seo.title}</title>
         <meta name="description" content={seo.metaDesc} />
@@ -49,7 +49,7 @@ export default function korean({ allKoreansentences: { edges }, preview }) {
           <MoreSentences koreansentences={moreSentences} />
         )}
       </Container>
-    </Layout>
+    </>
   );
 }
 

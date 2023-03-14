@@ -13,6 +13,7 @@ import PostTitle from "../../components/blog/post-title";
 import Tags from "../../components/blog/tags";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../../lib/api";
 import { CMS_NAME } from "../../lib/constants";
+import parse from "html-react-parser";
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter();
@@ -85,3 +86,98 @@ export const getStaticPaths: GetStaticPaths = async () => {
     fallback: true,
   };
 };
+// import Head from "next/head";
+// import Link from "next/link";
+// import { gql } from "@apollo/client";
+
+// import { getApolloClient } from "../../lib/apollo-client";
+
+// import styles from "../../styles/Home.module.css";
+
+// export default function Post({ post, site }) {
+//   return (
+//     <div className={styles.container}>
+//       <Head>
+//         <title>{post.title}</title>
+//         <meta
+//           name="description"
+//           content={`Read more about ${post.title} on ${site.title}`}
+//         />
+//         <link rel="icon" href="/favicon.ico" />
+//       </Head>
+
+//       <main className={styles.main}>
+//         <h1 className={styles.title}>{post.title}</h1>
+
+//         <div className={styles.grid}>
+//           <div
+//             className={styles.content}
+//             dangerouslySetInnerHTML={{
+//               __html: post.content,
+//             }}
+//           />
+//         </div>
+
+//         <p className={styles.backToHome}>
+//           <Link href="/">
+//             <span>&lt; Back to home</span>
+//           </Link>
+//         </p>
+//       </main>
+//     </div>
+//   );
+// }
+
+// export async function getStaticProps({ params = { postSlug: "" } }) {
+//   const { postSlug } = params;
+
+//   const apolloClient = getApolloClient();
+
+//   const data = await apolloClient.query({
+//     query: gql`
+//       query PostBySlug($slug: String!) {
+//         generalSettings {
+//           title
+//         }
+//         postBy(slug: $slug) {
+//           id
+//           content
+//           title
+//           slug
+//         }
+//       }
+//     `,
+//     variables: {
+//       slug: postSlug, // $slug 변수에 postSlug 값을 전달
+//     },
+//   });
+
+//   // 나머지 코드는 그대로 유지
+
+//   const post = data?.data.postBy;
+
+//   if (!post) {
+//     return {
+//       props: {},
+//       notFound: true,
+//     };
+//   }
+
+//   const site = {
+//     ...data?.data.generalSettings,
+//   };
+
+//   return {
+//     props: {
+//       post,
+//       site,
+//     },
+//   };
+// }
+
+// export async function getStaticPaths() {
+//   return {
+//     paths: [],
+//     fallback: "blocking",
+//   };
+// }
