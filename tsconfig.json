@@ -15,6 +15,14 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/documentation.js", "pages/documentation/[slug].js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/documentation.tsx",
+    "pages/documentation/[slug].js",
+    "components/documentation/sidebar.js",
+    "components/jonghwan/sidebar.js"
+  ],
   "exclude": ["node_modules"]
 }

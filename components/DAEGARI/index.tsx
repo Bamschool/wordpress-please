@@ -2,6 +2,7 @@
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
+import styles from "./index.module.css";
 
 import { usePathname } from "next/navigation";
 import { useTheme, ThemeProvider } from "next-themes";
@@ -26,7 +27,9 @@ export default function Navbar() {
   const pathname = usePathname();
   const [navbar, setNavbar] = useState(false);
   return (
-    <header className="w-full mx-auto  px-4 sm:px-20 z-50 shadow bg-white dark:bg-stone-900 dark:border-b dark:border-stone-600">
+    // <header className="custom-navbar w-full mx-auto px-4 sm:px-20 z-50 shadow bg-background dark:border-b dark:border-stone-600 fixed top-0">
+    // {/*
+    <header className="custom-navbar w-full mx-auto px-4 sm:px-20 z-50 shadow bg-background dark:border-b dark:border-stone-600">
       <div className="justify-between md:items-center md:flex">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -55,19 +58,17 @@ export default function Navbar() {
             <div className="items-center justify-center space-y-8 md:flex md:space-x-6 md:space-y-0">
               {navgiations.map((nav, index) => {
                 return (
-                  <Link
-                    key={index}
-                    href={nav.path}
-                    className={
-                      "block lg:inline-block text-neutral-900  hover:text-neutral-500 dark:text-neutral-100"
-                    }
-                    //     activeClassName="active"
-                    onClick={() => setNavbar(!navbar)}
-                  >
-                    {nav.label}
+                  <Link key={index} href={nav.path}>
+                    <span
+                      className="nav-link block lg:inline-block cursor-pointer hover:text-neutral-500"
+                      onClick={() => setNavbar(!navbar)}
+                    >
+                      {nav.label}
+                    </span>
                   </Link>
                 );
               })}
+
               {currentTheme === "dark" ? (
                 <button
                   onClick={() => setTheme("light")}

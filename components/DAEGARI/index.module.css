@@ -1,0 +1,7 @@
+.custom-navbar .nav-link {
+  @apply text-neutral-900 dark:text-neutral-100;
+}
+
+.custom-navbar .nav-link:hover {
+  @apply text-neutral-500;
+}
