@@ -24,7 +24,7 @@ export async function getStaticPaths() {
   };
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params, preview = false }) => {
   const { data } = await client.query({
     query: gql`
       query Documentation($slug: String!) {
@@ -73,17 +73,23 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       data,
+      preview,
       myexampleprop: "test",
     },
   };
 };
 
-function jonghwan(props) {
+interface DocumentationProps {
+  data: any;
+  children?: React.ReactNode;
+}
+
+function jonghwan(props: DocumentationProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { data } = props;
   const documentation = data.documentation;
   return (
-    <div className="grid min-h-screen grid-rows-header bg-zinc-100">
+    <div className="grid min-h-screen grid-rows-header ">
       <div>
         <SecondNavbar
           onMenuButtonClick={() => setSidebarOpen((prev) => !prev)}
