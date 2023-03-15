@@ -12,7 +12,7 @@ import Sidebar from "../components/documentation/sidebar";
 import React, { useState } from "react";
 import SecondNavbar from "../components/documentation/secondNavbar";
 
-export const getStaticProps = async () => {
+export const getStaticProps = async (preview) => {
   const { data } = await client.query({
     query: gql`
       query AllDocumentations {
@@ -54,10 +54,12 @@ export const getStaticProps = async () => {
   });
   return {
     props: {
-      revalidate: 10,
+      preview,
+
       data,
       myexampleprop: "test",
     },
+    revalidate: 10,
   };
 };
 
@@ -69,7 +71,7 @@ interface DocumentationProps {
 export default function documentation(props: DocumentationProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   return (
-    <div className="grid min-h-screen grid-rows-header bg-zinc-100">
+    <div className="grid min-h-screen grid-rows-header">
       <div>
         <SecondNavbar
           onMenuButtonClick={() => setSidebarOpen((prev) => !prev)}
