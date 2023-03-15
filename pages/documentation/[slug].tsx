@@ -2,16 +2,24 @@ import { useRouter } from "next/router";
 import ErrorPage from "next/error";
 import Head from "next/head";
 import DocumentationBody from "../../components/documentation/documentation-body";
-
+import React, { useState } from "react";
+import SecondNavbar from "../../components/documentation/secondNavbar";
 import {
   getAllDocumentationWithSlug,
   getDocumentationAndMorePosts,
+  getAllDocumentationsForHome,
 } from "../../lib/api";
 import { CMS_NAME } from "../../lib/constants";
 import Sidebar from "../../components/documentation/sidebar";
 
-export default function Post({ documentation, documentations, preview }) {
+export default function Post({
+  documentation,
+  documentations,
+  preview,
+  allDocumentations,
+}) {
   const router = useRouter();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const moreDocumentations = documentations?.edges;
 
   if (!router.isFallback && !documentation?.slug) {
@@ -19,10 +27,25 @@ export default function Post({ documentation, documentations, preview }) {
   }
 
   return (
-    <div>
-      {documentation && (
-        <DocumentationBody content={documentation.content} title={undefined} />
-      )}
+    <div className="grid min-h-screen grid-rows-header">
+      <div>
+        <SecondNavbar
+          onMenuButtonClick={() => setSidebarOpen((prev) => !prev)}
+        />
+      </div>
+      <div className="grid md:grid-cols-sidebar">
+        <Sidebar
+          open={sidebarOpen}
+          setOpen={setSidebarOpen}
+          allDocumentations={allDocumentations}
+        />
+        {documentation && documentation.content && (
+          <DocumentationBody
+            content={documentation.content}
+            title={documentation.title}
+          />
+        )}
+      </div>{" "}
     </div>
   );
 }
@@ -34,6 +57,9 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     previewData
   );
 
+  // Get all documentations for the sidebar
+  const allDocumentations = await getAllDocumentationsForHome(preview);
+
   if (!data.documentation) {
     return { notFound: true };
   }
@@ -43,6 +69,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
       preview,
       documentation: data.documentation,
       documentations: data.documentations,
+      allDocumentations, // Pass the allDocumentations data to the component
     },
     revalidate: 10,
   };
@@ -59,6 +86,15 @@ export async function getStaticPaths() {
     fallback: true,
   };
 }
+
+// export async function getStaticProps({ preview = false }) {
+//   const allDocumentations = await getAllDocumentationsForHome(preview);
+
+//   return {
+//     props: { allDocumentations },
+//     revalidate: 10,
+//   };
+// }
 
 // import React, { useState } from "react";
 // import client from "../../client";
