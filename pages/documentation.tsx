@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { GetStaticProps } from "next";
-import { getAllDocumentationsForHome } from "../lib/api";
 
 import { useRouter } from "next/router";
 import client from "../client";
@@ -12,7 +11,7 @@ import Sidebar from "../components/documentation/sidebar";
 import React, { useState } from "react";
 import SecondNavbar from "../components/documentation/secondNavbar";
 
-export const getStaticProps = async (preview) => {
+export const getStaticProps = async ({ preview = false }) => {
   const { data } = await client.query({
     query: gql`
       query AllDocumentations {
@@ -52,11 +51,11 @@ export const getStaticProps = async (preview) => {
       }
     `,
   });
+
   return {
     props: {
-      preview,
-
       data,
+      preview,
       myexampleprop: "test",
     },
     revalidate: 10,
@@ -88,6 +87,7 @@ export default function documentation(props: DocumentationProps) {
     </div>
   );
 }
+
 // import React, { useState } from "react";
 // import { useRouter } from "next/router";
 // import client from "client";
