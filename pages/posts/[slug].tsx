@@ -14,11 +14,12 @@ import Tags from "../../components/blog/tags";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../../lib/api";
 import { CMS_NAME } from "../../lib/constants";
 import parse from "html-react-parser";
+import Meta from "../../components/blog/meta";
 
 export default function Post({ post, posts, preview }) {
   const router = useRouter();
   const morePosts = posts?.edges;
-
+  const seo = post?.seo || {};
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
@@ -31,15 +32,11 @@ export default function Post({ post, posts, preview }) {
       ) : (
         <>
           <article>
-            <Head>
-              <title>
-                {`${post.title} | Next.js Blog Example with ${CMS_NAME}`}
-              </title>
-              <meta
-                property="og:image"
-                content={post.featuredImage?.node.sourceUrl}
-              />
-            </Head>
+            <Meta
+              title={seo?.title || post?.title || "Fallback Title"}
+              description={seo?.metaDesc || "Fallback Description"}
+              // ogImage={/* If you have an Open Graph image URL, pass it here */}
+            />
             <PostHeader
               title={post.title}
               coverImage={post.featuredImage}

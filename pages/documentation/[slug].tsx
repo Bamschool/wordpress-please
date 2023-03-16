@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import Head from "next/head";
 import DocumentationBody from "../../components/documentation/documentation-body";
 import React, { useState } from "react";
 import SecondNavbar from "../../components/documentation/secondNavbar";
@@ -9,6 +8,7 @@ import {
   getDocumentationAndMorePosts,
   getAllDocumentationsForHome,
 } from "../../lib/api";
+import Meta from "../../components/blog/meta";
 import { CMS_NAME } from "../../lib/constants";
 import Sidebar from "../../components/documentation/sidebar";
 
@@ -18,6 +18,7 @@ export default function Post({
   preview,
   allDocumentations,
 }) {
+  const seo = documentation?.seo || {};
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const moreDocumentations = documentations?.edges;
@@ -28,6 +29,11 @@ export default function Post({
 
   return (
     <div className="grid min-h-screen grid-rows-header">
+      <Meta
+        title={seo?.title || documentation?.title || "Fallback Title"}
+        description={seo?.metaDesc || "Fallback Description"}
+        // ogImage={/* If you have an Open Graph image URL, pass it here */}
+      />
       <div>
         <SecondNavbar
           onMenuButtonClick={() => setSidebarOpen((prev) => !prev)}
@@ -45,7 +51,7 @@ export default function Post({
             title={documentation.title}
           />
         )}
-      </div>{" "}
+      </div>
     </div>
   );
 }
@@ -64,12 +70,19 @@ export async function getStaticProps({ params, preview = false, previewData }) {
     return { notFound: true };
   }
 
+  const seo = data.documentation.seo || {};
+
   return {
     props: {
       preview,
       documentation: data.documentation,
       documentations: data.documentations,
       allDocumentations, // Pass the allDocumentations data to the component
+      seo: {
+        title: seo.title || "",
+        metaDesc: seo.metaDesc || "",
+        fullHead: seo.fullHead || "",
+      }, // Pass the seo data to the component with default values
     },
     revalidate: 10,
   };

@@ -1,5 +1,3 @@
-// components/blog/meta.tsx
-
 import Head from "next/head";
 import { CMS_NAME, HOME_OG_IMAGE_URL } from "../../lib/constants";
 
@@ -7,10 +5,18 @@ type Props = {
   title?: string;
   description?: string;
   ogImage?: string;
+  twitterSite?: string;
+  keywords?: string[];
 };
 
-export default function Meta({ title, description, ogImage }: Props) {
-  const defaultTitle = `Next.js Blog Example with ${CMS_NAME}`;
+export default function Meta({
+  title,
+  description,
+  ogImage,
+  twitterSite,
+  keywords,
+}: Props) {
+  const defaultTitle = `BamSchool `;
   const defaultDescription = "This is a meta description";
   const defaultOgImage = HOME_OG_IMAGE_URL;
 
@@ -30,8 +36,9 @@ export default function Meta({ title, description, ogImage }: Props) {
         content={description ? description : defaultDescription}
       />
       <meta property="og:image" content={ogImage ? ogImage : defaultOgImage} />
+      <meta property="og:type" content="article" />
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:site" content="@YourTwitterHandle" />
+      <meta property="twitter:site" content={twitterSite} />
       <meta
         property="twitter:title"
         content={title ? `${title} | ${defaultTitle}` : defaultTitle}
@@ -44,6 +51,7 @@ export default function Meta({ title, description, ogImage }: Props) {
         property="twitter:image"
         content={ogImage ? ogImage : defaultOgImage}
       />
+      {keywords && <meta name="keywords" content={keywords.join(", ")} />}
       <link
         rel="apple-touch-icon"
         sizes="180x180"

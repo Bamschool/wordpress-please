@@ -461,38 +461,38 @@ export async function getAllDocumentationWithSlug() {
 
 export async function getAllDocumentationsForHome(preview) {
   const data = await fetchAPI(`
-    query AllDocumentations {
-      documentations(first: 20, where: {orderby: {field: DATE, order: DESC}}) {
-        edges {
-          node {
-            title
-            excerpt
-            slug
-            date
-            featuredImage {
-              node {
-                sourceUrl
+  query AllDocumentations {
+    documentations(first: 20, where: {orderby: {field: DATE, order: DESC}}) {
+      edges {
+        node {
+          title
+          excerpt
+          slug
+          date
+          featuredImage {
+            node {
+              sourceUrl
+            }
+          }
+          author {
+            node {
+              name
+              firstName
+              lastName
+              avatar {
+                url
               }
             }
-            author {
-              node {
-                name
-                firstName
-                lastName
-                avatar {
-                  url
-                }
-              }
-            }
-            categories {
-              nodes {
-                name
-              }
+          }
+          categories {
+            nodes {
+              name
             }
           }
         }
       }
     }
+  }
   `);
 
   return data?.documentations.edges || [];

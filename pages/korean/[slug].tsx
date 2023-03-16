@@ -12,6 +12,7 @@ import Layout from "../../components/blog/layout";
 import PostTitle from "../../components/blog/post-title";
 import Tags from "../../components/blog/tags";
 import Header from "../../components/blog/header";
+import Meta from "../../components/blog/meta";
 import {
   getAllKoreansentencesWithSlug,
   getKoreansentenceAndMorePosts,
@@ -21,10 +22,15 @@ import { CMS_NAME } from "../../lib/constants";
 export default function Post({ koreansentence, koreansentences, preview }) {
   const router = useRouter();
   const moreKoreansentences = koreansentences?.edges;
+  const seo = koreansentence?.seo || {};
 
   if (!router.isFallback && !koreansentence?.slug) {
     return <ErrorPage statusCode={404} />;
   }
+  const keywords =
+    koreansentence && koreansentence.tags
+      ? koreansentence.tags.edges.map((tag) => tag.node.name)
+      : [];
 
   return (
     <Container>
@@ -34,15 +40,13 @@ export default function Post({ koreansentence, koreansentences, preview }) {
       ) : (
         <>
           <article>
-            <Head>
-              <title>
-                {`${koreansentence.title} | Next.js Blog Example with ${CMS_NAME}`}
-              </title>
-              <meta
-                property="og:image"
-                content={koreansentence.featuredImage?.node.sourceUrl}
-              />
-            </Head>
+            <Meta
+              title={seo?.title || koreansentence?.title || "Fallback Title"}
+              description={seo?.metaDesc || "Fallback Description"}
+              ogImage={koreansentence.featuredImage?.sourceUrl || undefined}
+              twitterSite="@YourActualTwitterHandle"
+              keywords={keywords}
+            />
             <KoreanHeader
               title={koreansentence.title}
               coverImage={koreansentence.featuredImage}
