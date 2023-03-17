@@ -3,10 +3,14 @@ import classNames from "classnames";
 import Link from "next/link";
 import { FiChevronDown, FiChevronRight } from "react-icons/fi";
 import styles from "./sidebar.module.css";
+import { useTheme } from "next-themes";
+
 const Sidebar = ({ allDocumentations, open, setOpen }) => {
   if (!Array.isArray(allDocumentations)) {
     return null;
   }
+
+  const { theme } = useTheme();
 
   const [openCategories, setOpenCategories] = useState({});
 
@@ -42,14 +46,24 @@ const Sidebar = ({ allDocumentations, open, setOpen }) => {
 
   return (
     <div
+      // className={classNames(styles.sidebar, styles.moveUp, {
+      //   "light:bg-white-800 text-white-900 dark:bg-gray-800 dark:text-white":
+      //     true, // colors
+      //   "flex flex-col justify-between": true,
+      //   "md:w-full md:sticky md:top-16 md:z-0 top-0 z-20 fixed": true,
+      //   "md:h-[calc(100vh_-_64px)] h-full w-[300px]": true,
+      //   "transition-transform .3s ease-in-out md:translate-x-0": true,
+      //   "-translate-x-full": !open,
+      // })}
       className={classNames(styles.sidebar, styles.moveUp, {
         "flex flex-col justify-between": true,
         "md:w-full md:sticky md:top-16 md:z-0 top-0 z-20 fixed": true,
         "md:h-[calc(100vh_-_64px)] h-full w-[300px]": true,
         "transition-transform .3s ease-in-out md:translate-x-0": true,
         "-translate-x-full": !open,
+        [styles.dark]: theme === "dark",
+        [styles.light]: theme === "light",
       })}
-      style={{ backgroundColor: "#ffffff" }}
     >
       <nav className="md:sticky top-0 md:top-16">
         <ul className="p-2">

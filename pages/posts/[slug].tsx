@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import ErrorPage from "next/error";
-import Head from "next/head";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Container from "../../components/blog/container";
 import PostBody from "../../components/blog/post-body";
@@ -8,22 +7,23 @@ import MoreStories from "../../components/blog/more-stories";
 import Header from "../../components/blog/header";
 import PostHeader from "../../components/blog/post-header";
 import SectionSeparator from "../../components/blog/section-separator";
-import Layout from "../../components/blog/layout";
 import PostTitle from "../../components/blog/post-title";
 import Tags from "../../components/blog/tags";
 import { getAllPostsWithSlug, getPostAndMorePosts } from "../../lib/api";
-import { CMS_NAME } from "../../lib/constants";
-import parse from "html-react-parser";
 import Meta from "../../components/blog/meta";
 
+import Head from "next/head";
 export default function Post({ post, posts, preview }) {
   const router = useRouter();
   const morePosts = posts?.edges;
   const seo = post?.seo || {};
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />;
   }
 
+  const keywords = post?.tags?.edges?.map((tag) => tag.node.name) || [];
+ 
   return (
     <Container>
       <Header />
@@ -35,8 +35,11 @@ export default function Post({ post, posts, preview }) {
             <Meta
               title={seo?.title || post?.title || "Fallback Title"}
               description={seo?.metaDesc || "Fallback Description"}
-              // ogImage={/* If you have an Open Graph image URL, pass it here */}
+              ogImage={post.featuredImage?.sourceUrl || undefined}
+              twitterSite="@YourActualTwitterHandle"
+              keywords={keywords}
             />
+
             <PostHeader
               title={post.title}
               coverImage={post.featuredImage}

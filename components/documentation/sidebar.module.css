@@ -1,15 +1,15 @@
-.sidebar {
-  background-color: #d8edec;
-  color: #000;
+.dark {
+  background-color: #222;
+  color: #fff;
+  opacity: 30;
 }
 
-@media (prefers-color-scheme: dark) {
-  .sidebar {
-    background-color: #222;
-    color: #fff;
-  }
+.light {
+  background-color: #fff;
+  color: #222;
+  opacity: 30;
 }
 
-Copy code .moveUp {
+.moveUp {
   top: -0.5rem; /* Adjust this value to move the sidebar up or down */
 }

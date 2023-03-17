@@ -1,5 +1,5 @@
 import styles from "./documentation-body.module.css";
-export default function DocumentationBody({ content, title }) {
+export default function DocumentationBody({ content, title,  }) {
   console.log(title);
 
   return (

@@ -162,6 +162,11 @@ export async function getPostAndMorePosts(slug, preview, previewData) {
           }
         }
       }
+      seo {
+        metaDesc
+        title
+        fullHead
+      }
     }
     query PostBySlug($id: ID!, $idType: PostIdType!) {
       post(id: $id, idType: $idType) {
@@ -354,6 +359,11 @@ export async function getKoreansentenceAndMorePosts(
           }
         }
       }
+      seo {
+        metaDesc
+        title
+        fullHead
+      }
     }
     query KoreansentenceBySlug($id: ID!, $idType: KoreansentenceIdType!) {
       koreansentence (id: $id, idType: $idType) {
@@ -489,6 +499,11 @@ export async function getAllDocumentationsForHome(preview) {
               name
             }
           }
+          seo {
+            metaDesc
+            fullHead
+            title
+          }
         }
       }
     }
@@ -547,6 +562,11 @@ export async function getDocumentationAndMorePosts(slug, preview, previewData) {
             name
           }
         }
+      }
+      seo {
+        metaDesc
+        title
+        fullHead
       }
     }
     query DocumentationBySlug($id: ID!, $idType: DocumentationIdType!) {

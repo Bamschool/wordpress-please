@@ -5,3 +5,11 @@
 .custom-navbar .nav-link:hover {
   @apply text-neutral-500;
 }
+
+/* Add this to your CSS file */
+@media screen and (max-width: 767px) {
+  .mobileNavItem {
+    font-size: 1.5rem; /* Increase the font size */
+    padding: 10px 0; /* Add vertical padding */
+  }
+}

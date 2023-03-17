@@ -29,7 +29,9 @@ export default function Navbar() {
   return (
     // <header className="custom-navbar w-full mx-auto px-4 sm:px-20 z-50 shadow bg-background dark:border-b dark:border-stone-600 fixed top-0">
     // {/*
-    <header className="custom-navbar w-full mx-auto px-4 sm:px-20 z-50 shadow bg-background dark:border-b dark:border-stone-600">
+    <header
+      className={`custom-navbar w-full mx-auto px-4 sm:px-20 z-50 shadow bg-background dark:border-b dark:border-stone-600 ${styles.navbar}`}
+    >
       <div className="justify-between md:items-center md:flex">
         <div>
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -60,7 +62,7 @@ export default function Navbar() {
                 return (
                   <Link key={index} href={nav.path}>
                     <span
-                      className="nav-link block lg:inline-block cursor-pointer hover:text-neutral-500"
+                      className={`nav-link block lg:inline-block cursor-pointer hover:text-neutral-500 ${styles.mobileNavItem}`}
                       onClick={() => setNavbar(!navbar)}
                     >
                       {nav.label}

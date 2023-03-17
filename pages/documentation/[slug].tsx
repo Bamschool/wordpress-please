@@ -23,17 +23,23 @@ export default function Post({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const moreDocumentations = documentations?.edges;
 
+  const keywords =
+    documentation?.tags?.edges?.map((tag) => tag.node.name) || [];
+
   if (!router.isFallback && !documentation?.slug) {
     return <ErrorPage statusCode={404} />;
   }
-
+  console.log("SEO MetaDesc:", seo?.metaDesc);
   return (
     <div className="grid min-h-screen grid-rows-header">
       <Meta
         title={seo?.title || documentation?.title || "Fallback Title"}
         description={seo?.metaDesc || "Fallback Description"}
-        // ogImage={/* If you have an Open Graph image URL, pass it here */}
+        ogImage={documentation?.featuredImage?.sourceUrl || undefined}
+        twitterSite="@YourActualTwitterHandle"
+        keywords={keywords}
       />
+
       <div>
         <SecondNavbar
           onMenuButtonClick={() => setSidebarOpen((prev) => !prev)}
@@ -64,7 +70,7 @@ export async function getStaticProps({ params, preview = false, previewData }) {
   );
 
   // Get all documentations for the sidebar
-  const allDocumentations = await getAllDocumentationsForHome(preview);
+  const allDocumentations = (await getAllDocumentationsForHome(preview)) || [];
 
   if (!data.documentation) {
     return { notFound: true };
