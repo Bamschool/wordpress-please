@@ -23,7 +23,7 @@ export default function Post({ post, posts, preview }) {
   }
 
   const keywords = post?.tags?.edges?.map((tag) => tag.node.name) || [];
- 
+
   return (
     <Container>
       <Header />
@@ -35,7 +35,7 @@ export default function Post({ post, posts, preview }) {
             <Meta
               title={seo?.title || post?.title || "Fallback Title"}
               description={seo?.metaDesc || "Fallback Description"}
-              ogImage={post.featuredImage?.sourceUrl || undefined}
+              ogImage={post.featuredImage?.sourceUrl || "/fallback-image.jpg"}
               twitterSite="@YourActualTwitterHandle"
               keywords={keywords}
             />
