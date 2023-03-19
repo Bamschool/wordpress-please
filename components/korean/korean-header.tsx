@@ -25,7 +25,7 @@ export default function KoreanHeader({
           <Avatar author={author} />
         </div>
         <div className="mb-6 text-lg">
-          Posted <Date dateString={date} />
+          Posted1 <Date dateString={date} />
           <KoreanCategories categories={categories} />
         </div>
       </div>
