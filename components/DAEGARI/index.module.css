@@ -13,3 +13,27 @@
     padding: 10px 0; /* Add vertical padding */
   }
 }
+
+.bg-background {
+  background-color: #fff;
+}
+
+.second-navbar {
+  top: 64px;
+}
+
+.invert-colors {
+  filter: invert(100%);
+}
+
+.dark {
+  background-color: #222;
+  color: #fff;
+  opacity: 30;
+}
+
+.light {
+  background-color: #fff;
+  color: #222;
+  opacity: 30;
+}

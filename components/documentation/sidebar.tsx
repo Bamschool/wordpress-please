@@ -89,7 +89,9 @@ const Sidebar = ({ allDocumentations, open, setOpen }) => {
                   nodes.map((node) => (
                     <li key={node.slug}>
                       <Link href={`/documentation/${node.slug}`}>
-                        <span className="block py-1 text-sm">{node.title}</span>
+                        <span className="block py-1 text-sm">
+                          -{node.title}
+                        </span>
                       </Link>
                     </li>
                   ))}
