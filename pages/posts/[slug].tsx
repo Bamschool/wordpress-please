@@ -47,7 +47,7 @@ export default function Post({ post, posts, preview }) {
               author={post.author}
               categories={post.categories}
             />
-            <PostBody content={post.content} />
+            <PostBody content={post.content} textColor={undefined} />
             <footer>
               {post.tags.edges.length > 0 && <Tags tags={post.tags} />}
             </footer>

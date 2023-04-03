@@ -66,12 +66,11 @@ export async function getAllPostsWithSlug() {
   `);
   return data?.posts;
 }
-
 export async function getAllPostsForHome(preview) {
   const data = await fetchAPI(
     `
     query AllPosts {
-      posts(first: 20, where: { orderby: { field: DATE, order: DESC } }) {
+      posts(first: 50, where: { orderby: { field: DATE, order: DESC } }) {
         edges {
           node {
             seo {
@@ -113,6 +112,58 @@ export async function getAllPostsForHome(preview) {
 
   return data?.posts;
 }
+// export async function getAllPostsForHome(postsPerPage, after, preview) {
+//   const data = await fetchAPI(
+//     `
+//     query AllPosts($first: Int, $after: String) {
+//       posts(first: $first, after: $after, where: { orderby: { field: DATE, order: DESC } }) {
+//         edges {
+//           node {
+//             seo {
+//               metaDesc
+//               fullHead
+//               title
+//             }
+//             title
+//             excerpt
+//             slug
+//             date
+//             featuredImage {
+//               node {
+//                 sourceUrl
+//               }
+//             }
+//             author {
+//               node {
+//                 name
+//                 firstName
+//                 lastName
+//                 avatar {
+//                   url
+//                 }
+//               }
+//             }
+//           }
+//         }
+//         pageInfo {
+//           endCursor
+//           hasNextPage
+//         }
+//       }
+//     }
+//   `,
+//     {
+//       variables: {
+//         first: postsPerPage,
+//         after: after,
+//         onlyEnabled: !preview,
+//         preview,
+//       },
+//     }
+//   );
+
+//   return data?.posts;
+// }
 
 export async function getPostAndMorePosts(slug, preview, previewData) {
   const postPreview = preview && previewData?.post;
@@ -472,7 +523,7 @@ export async function getAllDocumentationWithSlug() {
 export async function getAllDocumentationsForHome(preview) {
   const data = await fetchAPI(`
   query AllDocumentations {
-    documentations(first: 20, where: {orderby: {field: DATE, order: DESC}}) {
+    documentations(first: 50, where: {orderby: {field: DATE, order: DESC}}) {
       edges {
         node {
           title

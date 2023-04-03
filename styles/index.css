@@ -43,19 +43,23 @@
 .wp-block-image img {
   @apply max-w-full mt-2;
 }
+
 .wp-block-image.aligncenter {
   @apply text-center;
 }
+
 .wp-block-image.alignfull img,
 .wp-block-image.alignwide img {
   @apply w-full;
 }
+
 .wp-block-image .alignleft,
 .wp-block-image .alignright,
 .wp-block-image .aligncenter,
 .wp-block-image.is-resized {
   @apply table ml-0 mr-0;
 }
+
 .wp-block-image .alignleft > figcaption,
 .wp-block-image .alignright > figcaption,
 .wp-block-image .aligncenter > figcaption,
@@ -68,9 +72,11 @@
 .wp-block-image .alignleft {
   @apply float-left mr-4;
 }
+
 .wp-block-image .alignright {
   @apply float-right ml-4;
 }
+
 .wp-block-image .aligncenter {
   @apply m-auto;
 }
@@ -101,4 +107,100 @@
 
 .wp-block-media-text {
   @apply grid grid-cols-2 gap-4;
+}
+
+.search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+.search-input {
+  border: 1px solid #d9d9d9;
+  padding: 10px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+.search-toggle {
+  background-color: transparent;
+  border: 0;
+  transition: 0.3s ease;
+  padding: 0 15px 0 20px;
+  height: 42px;
+  border-radius: 4px !important;
+}
+
+.rc-pagination-item {
+  border-radius: 50% !important;
+}
+
+.rc-pagination-next,
+.rc-pagination-prev {
+  border-radius: 50% !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+.search-overlay.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(21, 32, 53, 0.3);
+  height: 100vh;
+  width: 100vw;
+  z-index: 8888;
+  transition: 0.3s;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.search-block.is-visible {
+  transform: translateY(0);
+}
+
+.search-block {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: auto;
+  width: 100vw;
+  background-color: #fff;
+  z-index: 9999988999889;
+  padding: 45px 50px;
+  transform: translateY(-100%);
+  transition: transform 0.3s cubic-bezier(0.85, 0, 0.15, 1);
+}
+.search-block [data-toggle="search-close"] {
+  font-size: 34px;
+  cursor: pointer;
+  position: absolute;
+  top: 30px;
+  right: 45px;
+}
+.search-block.is-visible input {
+  width: calc(100% - 50px);
+}
+
+.search-block input {
+  border: 0;
+  border-bottom: 1px solid #ddd;
+  font-size: 18px;
+  width: 200px;
+  max-width: 100%;
+  padding-bottom: 12px;
+  margin: auto;
+  border-radius: 0;
+  letter-spacing: -1px;
+  transition: width 0.3s ease 0.3s;
+}
+
+.search-results {
+  overflow-x: hidden;
+  /* overflow-y: auto; */
+  /* max-height: calc(100vh - 125px); */
 }

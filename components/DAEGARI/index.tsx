@@ -15,7 +15,7 @@ interface NavItem {
 }
 
 const navgiations = [
-  { label: "Blog", path: "/" },
+  { label: "Blog", path: "/blog" },
   { label: "Korean Sentences", path: "/korean" },
   { label: "Documentation", path: "/documentation" },
 

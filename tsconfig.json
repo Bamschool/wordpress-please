@@ -23,6 +23,6 @@
     "pages/documentation/[slug].js",
     "components/documentation/sidebar.js",
     "components/jonghwan/sidebar.js"
-  ],
+, "components/blog/Pagination.js", "components/blog/Pagination.js"  ],
   "exclude": ["node_modules"]
 }
